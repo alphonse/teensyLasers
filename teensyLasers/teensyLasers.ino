@@ -43,6 +43,7 @@ void loop()
      delay(50);
      digitalWrite(motorPin, LOW);
    }
+   Serial.println(analogRead(A0)*(3.3/4095), 4);
    i = 0;
    inCharStr = " ";
    delay(50);
@@ -53,6 +54,7 @@ void setFreq(String laser, int pin) {
   int freq = freqStr.toInt();
   analogWriteFrequency(pin, freq);
   analogWrite(pin, 4095/2);
+  // Serial.print("OK - "); Serial.println(freq);
 }
 
 void setupPin(int pin, int freq, int bits) {
