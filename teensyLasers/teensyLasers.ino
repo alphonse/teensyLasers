@@ -1,6 +1,8 @@
 /*
 Code to output 3 distinct square waves with a Teensy 3.1
-and set the frequency of each through serial communication
+and set the frequency of each through serial communication;
+reads voltage on PIN A0 for monitoring analog photodiode;
+Controls transitor switch for DC motor on pin 4.
 
 Al Fischer
 2016-01-26
@@ -21,6 +23,7 @@ void setup()
   setupPin(bluePin, 1368, 4095);
   setupPin(greenPin, 1370, 4095);
   setupPin(redPin, 1372, 4095);
+  pinMode(motorPin, OUTPUT);
 }
 
 void loop()
@@ -47,13 +50,13 @@ void loop()
 
 void setFreq(String laser, int pin) {
   String freqStr = laser.substring(2);
-  int freq = laser.toInt();
+  int freq = freqStr.toInt();
   analogWriteFrequency(pin, freq);
   analogWrite(pin, 4095/2);
 }
 
 void setupPin(int pin, int freq, int bits) {
   pinMode(pin, OUTPUT);
-  analogWriteFrequency(bluePin, freq);
+  analogWriteFrequency(pin, freq);
   analogWrite(pin, bits/2);
 }
